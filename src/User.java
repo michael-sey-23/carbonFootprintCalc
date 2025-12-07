@@ -43,4 +43,12 @@ public class User {
                 "\nUser's Total CarbonFootPrint: "+ getTotalFootPrint() +
                 "\nUser's category: " + getCategory();
     }
+
+    public String getComparison() {
+        double worldAverage = 4000; // kg CO₂ per person per year
+        double percentDiff = ((getTotalFootPrint() - worldAverage) / worldAverage) * 100;
+        return String.format("%.1f%% %s than world average",
+                Math.abs(percentDiff),
+                percentDiff > 0 ? "higher" : "lower");
+    }
 }
