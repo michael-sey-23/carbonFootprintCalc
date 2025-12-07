@@ -5,70 +5,88 @@ public class Main {
 
     public static void main(String[] args) {
 
+        // --- WINDOW ---
         JFrame frame = new JFrame("Carbon Footprint Calculator");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 600);
-        frame.setLayout(new BorderLayout());
+        frame.setSize(600, 650);
+        frame.setLayout(new BorderLayout(10, 10));
 
-        // PANEL FOR INPUT FIELDS
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(12, 2, 5, 5));
+        // === TITLE PANEL ===
+        JLabel title = new JLabel("Carbon Footprint Calculator", SwingConstants.CENTER);
+        title.setFont(new Font("Arial", Font.BOLD, 24));
+        title.setOpaque(true);
+        title.setBackground(new Color(46, 139, 87)); // green
+        title.setForeground(Color.WHITE);
+        title.setBorder(BorderFactory.createEmptyBorder(15, 0, 15, 0));
+        frame.add(title, BorderLayout.NORTH);
 
-        // USER INPUT FIELDS
+        // === INPUT PANEL ===
+        JPanel panel = new JPanel(new GridLayout(12, 2, 10, 10));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        // FONTS
+        Font labelFont = new Font("Times New Roman", Font.PLAIN, 16);
+        Font inputFont = new Font("Times New Roman", Font.PLAIN, 16);
+
+        // COMPONENTS
         JTextField nameField = new JTextField();
         JTextField ageField = new JTextField();
-
-        // VEHICLE INPUTS
         JComboBox<FuelType> fuelDropdown = new JComboBox<>(FuelType.values());
         JTextField mileageField = new JTextField();
         JTextField fuelConsumptionField = new JTextField();
         JTextField engineSizeField = new JTextField();
-
-        // HOME INPUTS
         JComboBox<SourceType> homeDropdown = new JComboBox<>(SourceType.values());
         JTextField homeEnergyField = new JTextField();
 
 
+        // Add with nice labels
+        panel.add(formatLabel("Name:", labelFont));
+        panel.add(formatInput(nameField, inputFont));
 
-        // ADD FIELDS TO PANEL
-        panel.add(new JLabel("Name:"));
-        panel.add(nameField);
+        panel.add(formatLabel("Age:", labelFont));
+        panel.add(formatInput(ageField, inputFont));
 
-        panel.add(new JLabel("Age:"));
-        panel.add(ageField);
-
-        panel.add(new JLabel("Fuel Type:"));
+        panel.add(formatLabel("Fuel Type:", labelFont));
         panel.add(fuelDropdown);
 
-        panel.add(new JLabel("Annual Mileage (km):"));
-        panel.add(mileageField);
+        panel.add(formatLabel("Annual Mileage (km):", labelFont));
+        panel.add(formatInput(mileageField, inputFont));
 
-        panel.add(new JLabel("Fuel Consumption (L/100km):"));
-        panel.add(fuelConsumptionField);
+        panel.add(formatLabel("Fuel Consumption (L/100km):", labelFont));
+        panel.add(formatInput(fuelConsumptionField, inputFont));
 
-        panel.add(new JLabel("Engine Size (L):"));
-        panel.add(engineSizeField);
+        panel.add(formatLabel("Engine Size (L):", labelFont));
+        panel.add(formatInput(engineSizeField, inputFont));
 
-        panel.add(new JLabel("Home Energy Source:"));
+        panel.add(formatLabel("Home Energy Source:", labelFont));
         panel.add(homeDropdown);
 
-        panel.add(new JLabel("Annual Energy Usage (kWh):"));
-        panel.add(homeEnergyField);
+        panel.add(formatLabel("Annual Energy (kWh):", labelFont));
+        panel.add(formatInput(homeEnergyField, inputFont));
 
 
+        frame.add(panel, BorderLayout.CENTER);
 
-        // BUTTON
-        JButton calculateBtn = new JButton("Calculate Carbon Footprint");
+        // === BUTTON ===
+        JButton calculateBtn = new JButton("Calculate Footprint");
+        calculateBtn.setFont(new Font("Arial", Font.BOLD, 18));
+        calculateBtn.setBackground(new Color(70, 130, 180));
+        calculateBtn.setForeground(Color.WHITE);
+        calculateBtn.setFocusPainted(false);
+        calculateBtn.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
-        // OUTPUT AREA
-        JTextArea outputArea = new JTextArea();
+        frame.add(calculateBtn, BorderLayout.SOUTH);
+
+        // === OUTPUT WINDOW ===
+        JTextArea outputArea = new JTextArea(10, 40);
+        outputArea.setFont(new Font("Consolas", Font.PLAIN, 16));
         outputArea.setEditable(false);
+
         JScrollPane scrollPane = new JScrollPane(outputArea);
 
-        // BUTTON ACTION
+        // ON CLICK BUTTON
         calculateBtn.addActionListener(e -> {
             try {
-                // Retrieve all inputs
                 String name = nameField.getText();
                 int age = Integer.parseInt(ageField.getText());
                 FuelType fuel = (FuelType) fuelDropdown.getSelectedItem();
@@ -79,27 +97,30 @@ public class Main {
                 double energy = Double.parseDouble(homeEnergyField.getText());
 
 
-                // Create objects
                 Vehicle vehicle = new Car(fuel, mileage, fuelCons, engine);
                 Home home = new Home(source, energy);
 
 
-                // Create user
                 User user = new User(name, vehicle, home, age);
 
-                // Display output
-                outputArea.setText(user.generateReport());
+                JOptionPane.showMessageDialog(frame, user.generateReport());
 
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(frame, "Invalid input! Please check your values.");
+                JOptionPane.showMessageDialog(frame, "⚠ Invalid input!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 
-        // ADD COMPONENTS TO FRAME
-        frame.add(panel, BorderLayout.NORTH);
-        frame.add(calculateBtn, BorderLayout.CENTER);
-        frame.add(scrollPane, BorderLayout.SOUTH);
-
         frame.setVisible(true);
+    }
+
+    private static JLabel formatLabel(String text, Font font) {
+        JLabel label = new JLabel(text);
+        label.setFont(font);
+        return label;
+    }
+
+    private static JTextField formatInput(JTextField field, Font font) {
+        field.setFont(font);
+        return field;
     }
 }
