@@ -126,7 +126,9 @@ public class Main {
 
                 User user = new User(name, vehicle, home, userDiet, age);
 
-                JOptionPane.showMessageDialog(frame, user.generateReport());
+                String output = user.generateReport() + "\n" + user. getComparison();
+
+                JOptionPane.showMessageDialog(frame, output);
 
 
             } catch (Exception ex) {
