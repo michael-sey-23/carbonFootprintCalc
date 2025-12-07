@@ -32,8 +32,8 @@ public abstract class Vehicle extends EmissionSource {
        double fuelUsed = annualMileage * rateOfFuelConsumption;
 
        double fuelEmissionFactor = switch (fuelType){
-           case PETROL -> 2.31;
-           case DIESEL -> 2.68;
+           case PETROL -> 2.35;
+           case DIESEL -> 2.69;
            case HYBRID -> 1.5;
            case ELECTRIC, NONE -> 0;
        };
