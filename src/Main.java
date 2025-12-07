@@ -5,13 +5,14 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // WINDOW 
+        // Frame
         JFrame frame = new JFrame("Carbon Footprint Calculator");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 650);
         frame.setLayout(new BorderLayout(10, 10));
 
-        // TITLE PANEL 
+
+        // Title
         JLabel title = new JLabel("Carbon Footprint Calculator", SwingConstants.CENTER);
         title.setFont(new Font("Arial", Font.BOLD, 24));
         title.setOpaque(true);
@@ -20,17 +21,22 @@ public class Main {
         title.setBorder(BorderFactory.createEmptyBorder(15, 0, 15, 0));
         frame.add(title, BorderLayout.NORTH);
 
-        // === INPUT PANEL ===
+        // Input
         JPanel panel = new JPanel(new GridLayout(12, 2, 10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        // FONTS
+        // Fonts
         Font labelFont = new Font("Times New Roman", Font.PLAIN, 16);
         Font inputFont = new Font("Times New Roman", Font.PLAIN, 16);
 
-        // COMPONENTS
+        // Components
         JTextField nameField = new JTextField();
         JTextField ageField = new JTextField();
+
+        // Vehicle Type Selection
+        String[] vehicleTypes = {"Car", "Motorcycle", "Plane", "Public Transport"};
+        JComboBox<String> vehicleTypeDropdown = new JComboBox<>(vehicleTypes);
+
         JComboBox<FuelType> fuelDropdown = new JComboBox<>(FuelType.values());
         JTextField mileageField = new JTextField();
         JTextField fuelConsumptionField = new JTextField();
@@ -40,12 +46,15 @@ public class Main {
         JComboBox<DietType> dietDropdown = new JComboBox<>(DietType.values());
 
 
-        // Add nice labels
+        // Add labels
         panel.add(formatLabel("Name:", labelFont));
         panel.add(formatInput(nameField, inputFont));
 
         panel.add(formatLabel("Age:", labelFont));
         panel.add(formatInput(ageField, inputFont));
+
+        panel.add(formatLabel("Vehicle Type:", labelFont));
+        panel.add(vehicleTypeDropdown);
 
         panel.add(formatLabel("Fuel Type:", labelFont));
         panel.add(fuelDropdown);
@@ -68,10 +77,9 @@ public class Main {
         panel.add(formatLabel("Diet Type: ", labelFont));
         panel.add(dietDropdown);
 
-
         frame.add(panel, BorderLayout.CENTER);
 
-        // BUTTON
+        // Calc Button
         JButton calculateBtn = new JButton("Calculate Footprint");
         calculateBtn.setFont(new Font("Arial", Font.BOLD, 18));
         calculateBtn.setBackground(new Color(70, 130, 180));
@@ -81,18 +89,19 @@ public class Main {
 
         frame.add(calculateBtn, BorderLayout.SOUTH);
 
-        // OUTPUT WINDOW 
+        // Output window
         JTextArea outputArea = new JTextArea(10, 40);
         outputArea.setFont(new Font("Consolas", Font.PLAIN, 16));
         outputArea.setEditable(false);
 
         JScrollPane scrollPane = new JScrollPane(outputArea);
 
-        // ON CLICK BUTTON
+        // After the button is clicked
         calculateBtn.addActionListener(e -> {
             try {
                 String name = nameField.getText();
                 int age = Integer.parseInt(ageField.getText());
+                String vehicleType = (String) vehicleTypeDropdown.getSelectedItem();
                 FuelType fuel = (FuelType) fuelDropdown.getSelectedItem();
                 double mileage = Double.parseDouble(mileageField.getText());
                 double fuelCons = Double.parseDouble(fuelConsumptionField.getText());
@@ -105,7 +114,13 @@ public class Main {
                     throw new IllegalArgumentException("Values cannot be negative");
                 }
 
-                Vehicle vehicle = new Car(fuel, mileage, fuelCons, engine);
+                Vehicle vehicle = switch (vehicleType) {
+                    case "Motorcycle" -> new Motorcycle(fuel, mileage, fuelCons, engine);
+                    case "Plane" -> new Plane(fuel, mileage, fuelCons, engine);
+                    case "Public Transport" -> new PublicTransport(fuel, mileage, fuelCons, engine);
+                    default -> new Car(fuel, mileage, fuelCons, engine);
+                };
+
                 Home home = new Home(source, energy);
                 Diet userDiet = new Diet(diet);
 
