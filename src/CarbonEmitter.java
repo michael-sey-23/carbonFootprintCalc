@@ -1,3 +1,3 @@
-public interface CarbonEmmitter {
+public interface CarbonEmitter {
     public double calculateEmission();
 }
