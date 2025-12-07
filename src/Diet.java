@@ -10,6 +10,8 @@ public class Diet extends EmissionSource {
         this.dietType = dietType;
     }
 
+
+
     /*
      Calculates annual carbon emissions from diet.
      Average annual emissions by diet type:
