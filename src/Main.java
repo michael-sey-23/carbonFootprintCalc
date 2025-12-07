@@ -5,13 +5,13 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // --- WINDOW ---
+        // WINDOW 
         JFrame frame = new JFrame("Carbon Footprint Calculator");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 650);
         frame.setLayout(new BorderLayout(10, 10));
 
-        // === TITLE PANEL ===
+        // TITLE PANEL 
         JLabel title = new JLabel("Carbon Footprint Calculator", SwingConstants.CENTER);
         title.setFont(new Font("Arial", Font.BOLD, 24));
         title.setOpaque(true);
@@ -39,7 +39,7 @@ public class Main {
         JTextField homeEnergyField = new JTextField();
 
 
-        // Add with nice labels
+        // Add nice labels
         panel.add(formatLabel("Name:", labelFont));
         panel.add(formatInput(nameField, inputFont));
 
@@ -67,7 +67,7 @@ public class Main {
 
         frame.add(panel, BorderLayout.CENTER);
 
-        // === BUTTON ===
+        // BUTTON
         JButton calculateBtn = new JButton("Calculate Footprint");
         calculateBtn.setFont(new Font("Arial", Font.BOLD, 18));
         calculateBtn.setBackground(new Color(70, 130, 180));
@@ -77,7 +77,7 @@ public class Main {
 
         frame.add(calculateBtn, BorderLayout.SOUTH);
 
-        // === OUTPUT WINDOW ===
+        // OUTPUT WINDOW 
         JTextArea outputArea = new JTextArea(10, 40);
         outputArea.setFont(new Font("Consolas", Font.PLAIN, 16));
         outputArea.setEditable(false);
@@ -106,7 +106,7 @@ public class Main {
                 JOptionPane.showMessageDialog(frame, user.generateReport());
 
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(frame, "⚠ Invalid input!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frame, " Invalid input!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 
