@@ -37,6 +37,8 @@ public class Main {
         JTextField engineSizeField = new JTextField();
         JComboBox<SourceType> homeDropdown = new JComboBox<>(SourceType.values());
         JTextField homeEnergyField = new JTextField();
+        JComboBox<DietType> dietDropdown = new JComboBox<>(DietType.values());
+        JTextField dietEnergyField = new JTextField();
 
 
         // Add nice labels
@@ -63,6 +65,9 @@ public class Main {
 
         panel.add(formatLabel("Annual Energy (kWh):", labelFont));
         panel.add(formatInput(homeEnergyField, inputFont));
+
+        panel.add(formatLabel("Diet Type: ", labelFont));
+        panel.add(dietDropdown);
 
 
         frame.add(panel, BorderLayout.CENTER);
@@ -95,13 +100,15 @@ public class Main {
                 double engine = Double.parseDouble(engineSizeField.getText());
                 SourceType source = (SourceType) homeDropdown.getSelectedItem();
                 double energy = Double.parseDouble(homeEnergyField.getText());
-
+                DietType diet = (DietType) dietDropdown.getSelectedItem();
+                double dietEnergy = Double.parseDouble(dietEnergyField.getText());
 
                 Vehicle vehicle = new Car(fuel, mileage, fuelCons, engine);
                 Home home = new Home(source, energy);
+                Diet userDiet = new Diet(diet, dietEnergy);
 
 
-                User user = new User(name, vehicle, home, age);
+                User user = new User(name, vehicle, home, userDiet, age);
 
                 JOptionPane.showMessageDialog(frame, user.generateReport());
 
