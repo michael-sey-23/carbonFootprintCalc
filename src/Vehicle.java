@@ -8,6 +8,7 @@ public abstract class Vehicle extends EmissionSource {
    }
    public Vehicle(String name, FuelType fuelType, double annualMileage, double rateOfFuelConsumption, double engineSize) {
        this.name = "Vehicle";
+       this.category = "Transport";
        this.fuelType = fuelType;
        this.annualMileage = annualMileage;
        this.rateOfFuelConsumption = rateOfFuelConsumption;
@@ -29,7 +30,7 @@ public abstract class Vehicle extends EmissionSource {
 
     @Override
     public double calculateEmission(){
-       double fuelUsed = annualMileage * rateOfFuelConsumption;
+       double fuelUsed = (annualMileage / 100) * rateOfFuelConsumption;
 
        double fuelEmissionFactor = switch (fuelType){
            case PETROL -> 2.35;
