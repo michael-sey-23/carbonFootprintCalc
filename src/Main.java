@@ -38,7 +38,6 @@ public class Main {
         JComboBox<SourceType> homeDropdown = new JComboBox<>(SourceType.values());
         JTextField homeEnergyField = new JTextField();
         JComboBox<DietType> dietDropdown = new JComboBox<>(DietType.values());
-        JTextField dietEnergyField = new JTextField();
 
 
         // Add nice labels
@@ -101,16 +100,19 @@ public class Main {
                 SourceType source = (SourceType) homeDropdown.getSelectedItem();
                 double energy = Double.parseDouble(homeEnergyField.getText());
                 DietType diet = (DietType) dietDropdown.getSelectedItem();
-                double dietEnergy = Double.parseDouble(dietEnergyField.getText());
+
+                if (mileage < 0 || fuelCons < 0 || engine < 0 || energy < 0) {
+                    throw new IllegalArgumentException("Values cannot be negative");
+                }
 
                 Vehicle vehicle = new Car(fuel, mileage, fuelCons, engine);
                 Home home = new Home(source, energy);
-                Diet userDiet = new Diet(diet, dietEnergy);
-
+                Diet userDiet = new Diet(diet);
 
                 User user = new User(name, vehicle, home, userDiet, age);
 
                 JOptionPane.showMessageDialog(frame, user.generateReport());
+
 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(frame, " Invalid input!", "Error", JOptionPane.ERROR_MESSAGE);
