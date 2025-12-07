@@ -17,9 +17,6 @@ public class User {
         return name;
 
     }
-    public int getAge() {
-        return age;
-    }
 
     public double getTotalFootPrint() {
         return vehicle.getAnnualEmissions() + home.getAnnualEmissions() + diet.getAnnualEmissions();
