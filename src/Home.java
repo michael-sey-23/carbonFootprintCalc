@@ -1,6 +1,6 @@
 public class Home extends EmissionSource {
-    private SourceType energySource;
-    private  double annualEnergyConsumptionKWh;
+    protected SourceType energySource;
+    protected double annualEnergyConsumptionKWh;
 
     public Home(SourceType energySource, double annualEnergyConsumptionKWh) {
         super();

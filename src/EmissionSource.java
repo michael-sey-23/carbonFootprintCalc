@@ -2,7 +2,7 @@ public abstract class EmissionSource implements CarbonEmmitter {
     protected String name;
     protected String category;
     protected double annualEmission;
-    protected boolean isCalcualted = false;
+    protected boolean isCalculated = false;
 
     public EmissionSource() {
     }
@@ -27,9 +27,9 @@ public abstract class EmissionSource implements CarbonEmmitter {
     }
 
     public double getAnnualEmissions() {
-        if (!isCalcualted) {
+        if (!isCalculated) {
             annualEmission = calculateEmission();
-            isCalcualted = true;
+            isCalculated = true;
         }
         return annualEmission;
     }
