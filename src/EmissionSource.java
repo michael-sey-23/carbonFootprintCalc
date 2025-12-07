@@ -1,4 +1,4 @@
-public abstract class EmissionSource implements CarbonEmmitter {
+public abstract class EmissionSource implements CarbonEmitter {
     protected String name;
     protected String category;
     protected double annualEmission;
@@ -12,11 +12,7 @@ public abstract class EmissionSource implements CarbonEmmitter {
         this.category = category;
         this.annualEmission = annualEmission;
     }
-
-    public double CalcCarbonFootPrint() {
-        return 0.23;
-    }
-
+    
     public String getName() {
         return name;
     }
