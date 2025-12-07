@@ -39,9 +39,8 @@ public class User {
 
     public String generateReport(){
         return "User: " + getName() +
-                "\nUser's age: " + getAge() +
-                "\nUser's Total CarbonFootPrint: "+ getTotalFootPrint() +
-                "\nUser's category: " + getCategory();
+                "\nTotal Carbon Footprint: "+ getTotalFootPrint() + " kg CO₂" +
+                "\nCarbon Emission Level: " + getCategory();
     }
 
     public String getComparison() {
