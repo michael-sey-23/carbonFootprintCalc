@@ -36,6 +36,7 @@ public abstract class Vehicle extends EmissionSource {
            case DIESEL -> 2.68;
            case HYBRID -> 1.5;
            case ELECTRIC -> 0;
+           case NONE -> 0;
        };
        return fuelUsed * fuelEmissionFactor;
    }
