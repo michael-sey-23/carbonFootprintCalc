@@ -94,8 +94,6 @@ public class Main {
         outputArea.setFont(new Font("Consolas", Font.PLAIN, 16));
         outputArea.setEditable(false);
 
-        JScrollPane scrollPane = new JScrollPane(outputArea);
-
         // After the button is clicked
         calculateBtn.addActionListener(e -> {
             try {
