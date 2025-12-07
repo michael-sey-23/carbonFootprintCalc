@@ -1,13 +1,15 @@
 public class User {
-    private String name;
-    private Vehicle vehicle;
-    private Home home;
-    private int age;
+    protected String name;
+    protected Vehicle vehicle;
+    protected Home home;
+    protected Diet diet;
+    protected int age;
 
-    public User(String name, Vehicle vehicle, Home home, int age) {
+    public User(String name, Vehicle vehicle, Home home, Diet diet, int age) {
         this.name = name;
         this.vehicle = vehicle;
         this.home = home;
+        this.diet = diet;
         this.age = age;
 
     }
@@ -20,16 +22,16 @@ public class User {
     }
 
     public double getTotalFootPrint() {
-        return vehicle.getAnnualEmissions() + home.getAnnualEmissions();
+        return vehicle.getAnnualEmissions() + home.getAnnualEmissions() + diet.getAnnualEmissions();
 
     }
 
     public String getCategory(){
         double total = getTotalFootPrint();
-        if( total < 3000){
+        if( total < 5000){
             return "Low";
         }
-        if( total < 7000){
+        if( total < 10000){
             return "Moderate";
         }
         return "High";
