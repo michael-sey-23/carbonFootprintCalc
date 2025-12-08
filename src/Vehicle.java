@@ -25,17 +25,4 @@ public abstract class Vehicle extends EmissionSource {
      We use these factors to estimate emissions:
      carbonEmissions = fuelUsed * emissionFactor
      */
-
-    @Override
-    public double calculateEmission(){
-       double fuelUsed = (annualMileage / 100) * rateOfFuelConsumption;
-
-       double fuelEmissionFactor = switch (fuelType){
-           case PETROL -> 2.35;
-           case DIESEL -> 2.69;
-           case HYBRID -> 1.5;
-           case ELECTRIC, NONE -> 0;
-       };
-       return fuelUsed * fuelEmissionFactor;
-   }
 }
