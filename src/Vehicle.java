@@ -1,4 +1,4 @@
-public abstract class Vehicle extends EmissionSource {
+public abstract class Vehicle extends EmissionSource{
     protected FuelType fuelType;
     protected double annualMileage;
     protected double rateOfFuelConsumption;//In l per 100km
@@ -9,12 +9,43 @@ public abstract class Vehicle extends EmissionSource {
    public Vehicle(String name, FuelType fuelType, double annualMileage, double rateOfFuelConsumption, double engineSize) {
        this.name = "Vehicle";
        this.category = "Transport";
-       this.fuelType = fuelType;
-       this.annualMileage = annualMileage;
-       this.rateOfFuelConsumption = rateOfFuelConsumption;
-       this.engineSize = engineSize;
+       setFuelType(fuelType);
+       setAnnualMileage(annualMileage);
+       setRateOfFuelConsumption(rateOfFuelConsumption);
+       setEngineSize(engineSize);
    }
-    /*
+
+
+   // Setters
+    public void setFuelType(FuelType fuelType) {
+        this.fuelType = fuelType;
+    }
+
+    public void setAnnualMileage(double annualMileage) {
+        if (annualMileage < 0){
+            throw new IllegalArgumentException("Values cannot be negative");
+        } else {
+            this.annualMileage = annualMileage;
+        }
+    }
+
+    public void setRateOfFuelConsumption(double rateOfFuelConsumption) {
+        if (rateOfFuelConsumption < 0){
+            throw new IllegalArgumentException("Values cannot be negative");
+        } else {
+            this.rateOfFuelConsumption = rateOfFuelConsumption;
+        }
+    }
+
+    public void setEngineSize(double engineSize) {
+       if (engineSize < 0){
+           throw new IllegalArgumentException("Values cannot be negative");
+       } else {
+           this.engineSize = engineSize;
+       }
+    }
+
+   /*
      Each fuel type produces a different amount of CO₂ when burned.
      These emission factors (kg of CO₂ per liter of fuel) come from
      standard environmental data used in carbon-footprint calculators.
