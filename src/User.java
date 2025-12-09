@@ -25,10 +25,10 @@ public class User {
 
     public String getCategory(){
         double total = getTotalFootPrint();
-        if( total < 5000){
+        if( total <= 4860){
             return "Low";
         }
-        if( total < 10000){
+        if(total < 10000){
             return "Moderate";
         }
         return "High";
@@ -41,10 +41,8 @@ public class User {
     }
 
     public String getComparison() {
-        double worldAverage = 4000; // kg CO₂ per person per year
+        double worldAverage = 4860; // kg CO₂ per person per year
         double percentDiff = ((getTotalFootPrint() - worldAverage) / worldAverage) * 100;
-        return String.format("%.1f%% %s than world average",
-                Math.abs(percentDiff),
-                percentDiff > 0 ? "higher" : "lower");
+        return String.format("%.1f%% %s than world average", Math.abs(percentDiff), percentDiff > 0 ? "higher" : "lower");
     }
 }
